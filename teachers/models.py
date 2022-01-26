@@ -10,6 +10,9 @@ class Teacher(models.Model):
     age = models.IntegerField(default=20)
     subject = models.CharField(max_length=64, null=True)
     experience = models.IntegerField(default=0)
+    email = models.EmailField(max_length=64, blank=True, null=True, unique=True)
+    birth_date = models.DateField()
+    phone_number = models.CharField(max_length=15, blank=True, null=True, unique=True)
     students = models.ManyToManyField(Student)
 
     @classmethod
