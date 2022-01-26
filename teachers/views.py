@@ -21,6 +21,12 @@ def get_teachers(request):
         'subject__contains',
         'subject__startswith',
         'experience',
+        'email',
+        'email__contains',
+        'phone_number',
+        'phone_number__contains',
+        'birth_date',
+        'birth_date__contains'
     ]
 
     query = {}
@@ -45,6 +51,18 @@ def get_teachers(request):
         <p>
             <input type="number" name="experience" value="{request.GET.get('experience', '')}"
             placeholder="Input experience">
+        </p>
+        <p>
+            <input type="email" name="email" value="{request.GET.get('email', '')}"
+            placeholder="Input email">
+        </p>
+        <p>
+            <input type="tel" name="phone_number" value="{request.GET.get('phone_number', '')}"
+            placeholder="Input phone number">
+        </p>
+        <p>
+            <input type="date" name="birth_date" value="{request.GET.get('birth_date', '')}"
+            placeholder="Input date of birth">
         </p>
         <p><button type="submit">Search</button></p></form>"""
 
