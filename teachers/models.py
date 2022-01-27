@@ -10,6 +10,9 @@ class Teacher(models.Model):
     age = models.IntegerField(default=20)
     subject = models.CharField(max_length=64, null=True)
     experience = models.IntegerField(default=0)
+    email = models.EmailField(max_length=64, blank=True, null=True, unique=True)
+    birth_date = models.DateField()
+    phone_number = models.CharField(max_length=15, blank=True, null=True, unique=True)
     students = models.ManyToManyField(Student)
 
     @classmethod
@@ -27,4 +30,5 @@ class Teacher(models.Model):
             t.save()
 
     def __str__(self):
-        return f"Teacher({self.id}) {self.first_name} {self.last_name} {self.age} {self.subject} {self.experience}"
+        return f"Teacher({self.id}) {self.first_name} {self.last_name} {self.age} {self.subject} {self.experience} " \
+               f"{self.email}, {self.phone_number}, {self.birth_date}"
