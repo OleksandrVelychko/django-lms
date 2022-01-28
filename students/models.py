@@ -25,4 +25,5 @@ class Student(models.Model):
             s.save()
 
     def __str__(self):
-        return f"Student({self.id}) {self.first_name} {self.last_name} {self.age}"
+        return f"Student({self.id}) {self.first_name} {self.last_name} {self.age} {self.phone_number} " \
+               f"{self.enroll_date} {self.graduate_date}"
