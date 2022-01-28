@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from students.views import get_students, create_student
+from students.views import get_students, create_student, update_student
 from teachers.views import get_teachers, create_teacher
 
 urlpatterns = [
@@ -23,6 +23,7 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('students/', get_students),
     path('students/create', create_student),
+    path('students/update/<int:id>', update_student),
     path('teachers/', get_teachers),
     path('teachers/create', create_teacher),
 ]

@@ -5,7 +5,7 @@ from django.forms import ModelForm
 from students.models import Student
 
 
-class StudentCreateForm(ModelForm):
+class StudentBaseForm(ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
@@ -24,3 +24,13 @@ class StudentCreateForm(ModelForm):
         if enroll_date > graduate_date:
             raise ValidationError("Enroll date can't be less than graduate date")
         return result
+
+
+class StudentCreateForm(StudentBaseForm):
+    pass
+
+
+class StudentUpdateForm(StudentBaseForm):
+    class Meta:
+        model = Student
+        exclude = ['age']
