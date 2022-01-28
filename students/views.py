@@ -1,10 +1,10 @@
-from django.shortcuts import render  # noqa
+from django.shortcuts import render, get_object_or_404  # noqa
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
 from students.forms import StudentCreateForm, StudentUpdateForm
 from students.models import Student
-from core_lms.utils import render_list_html, render_students_list_html
+from core_lms.utils import render_students_list_html
 
 
 def get_students(request):
@@ -73,7 +73,7 @@ def create_student(request):
 
 @csrf_exempt
 def update_student(request, id):
-    student = Student.objects.get(id=id)
+    student = get_object_or_404(Student, id=id)
     if request.method == 'POST':
         form = StudentUpdateForm(request.POST, instance=student)
         if form.is_valid():
