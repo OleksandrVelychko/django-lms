@@ -80,7 +80,7 @@ def update_student(request, id):
             form.save()
             return HttpResponseRedirect('/students/')
     else:
-        form = StudentCreateForm(instance=student)
+        form = StudentUpdateForm(instance=student)
 
     html = f"""<form method="post">{form.as_p()}<p><button type="submit">Update Student</button></p></form>"""
 

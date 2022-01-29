@@ -27,7 +27,9 @@ class StudentBaseForm(ModelForm):
 
 
 class StudentCreateForm(StudentBaseForm):
-    pass
+    class Meta:
+        model = Student
+        fields = '__all__'
 
 
 class StudentUpdateForm(StudentBaseForm):

@@ -1,7 +1,7 @@
+from django.core.validators import validate_email
 from django.db import models
 from faker import Faker
 import random
-from students.models import Student
 
 
 class Teacher(models.Model):
@@ -10,7 +10,7 @@ class Teacher(models.Model):
     age = models.IntegerField(default=20)
     subject = models.CharField(max_length=64, null=True)
     experience = models.IntegerField(default=0)
-    email = models.EmailField(max_length=64, blank=True, null=True, unique=True)
+    email = models.EmailField(max_length=64, blank=True, null=True, unique=True, validators=[validate_email])
     birth_date = models.DateField()
     phone_number = models.CharField(max_length=24, blank=True, null=True, unique=True)
 
@@ -30,4 +30,4 @@ class Teacher(models.Model):
 
     def __str__(self):
         return f"Teacher({self.id}) {self.first_name} {self.last_name} {self.age} {self.subject} {self.experience} " \
-               f"{self.email}, {self.phone_number}, {self.birth_date}"
+               f"{self.email} {self.phone_number} {self.birth_date}"
