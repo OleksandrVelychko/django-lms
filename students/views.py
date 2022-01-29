@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from students.forms import StudentCreateForm, StudentUpdateForm
 from students.models import Student
-from core_lms.utils import render_students_list_html
+from core_lms.utils import render_persons_list_html
 
 
 def get_students(request):
@@ -53,7 +53,7 @@ def get_students(request):
         qs = qs.filter(**query)
     except ValueError as e:
         return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
-    return render_students_list_html(qs, form)
+    return render_persons_list_html(qs, form)
 
 
 @csrf_exempt

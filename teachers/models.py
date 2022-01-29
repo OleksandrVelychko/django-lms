@@ -12,8 +12,7 @@ class Teacher(models.Model):
     experience = models.IntegerField(default=0)
     email = models.EmailField(max_length=64, blank=True, null=True, unique=True)
     birth_date = models.DateField()
-    phone_number = models.CharField(max_length=15, blank=True, null=True, unique=True)
-    students = models.ManyToManyField(Student)
+    phone_number = models.CharField(max_length=24, blank=True, null=True, unique=True)
 
     @classmethod
     def generate_teachers(cls, count):

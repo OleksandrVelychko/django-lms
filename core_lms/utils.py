@@ -37,13 +37,14 @@ def render_list_html(list_of_objects, extra_data="", no_data_message="<No Record
     return response
 
 
-def render_students_list_html(list_of_objects, extra_data="", no_data_message="<No Records>"):
+def render_persons_list_html(list_of_objects, extra_data="", no_data_message="<No Records>"):
+    endpoint = str(list_of_objects[0].__class__.__name__).lower() + 's'
     string_rows = []
     if extra_data:
         string_rows.append(extra_data)
 
     for obj in list_of_objects:
-        string_rows.append(html.escape(str(obj)) + ' ' + f'<a href="/students/update/{obj.id}">EDIT</a>')
+        string_rows.append(html.escape(str(obj)) + ' ' + f'<a href="/{endpoint}/update/{obj.id}">EDIT</a>')
 
     message = "<br>".join(string_rows)
     if not list_of_objects:
