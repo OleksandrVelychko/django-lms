@@ -1,10 +1,10 @@
-from django.shortcuts import render  # noqa
+from django.shortcuts import render, get_object_or_404  # noqa
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
-from students.forms import StudentCreateForm
+from students.forms import StudentCreateForm, StudentUpdateForm
 from students.models import Student
-from core_lms.utils import render_list_html
+from core_lms.utils import render_persons_list_html
 
 
 def get_students(request):
@@ -36,7 +36,9 @@ def get_students(request):
         <p>
             <input type="number" name="age" value="{request.GET.get('age', '')}" placeholder="Input age">
         </p>
-        <p><button type="submit">Search</button></p></form>"""
+        <p><button type="submit">Search</button></p></form>
+        <br>
+        <a href="/students/create">Add a new student</a><br>"""
 
     for param_name in params:
         param_value = request.GET.get(param_name)
@@ -51,7 +53,7 @@ def get_students(request):
         qs = qs.filter(**query)
     except ValueError as e:
         return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
-    return render_list_html(qs, form)
+    return render_persons_list_html(qs, form)
 
 
 @csrf_exempt
@@ -65,5 +67,21 @@ def create_student(request):
         form = StudentCreateForm()
 
     html = f"""<form method="post">{form.as_p()}<p><button type="submit">Create Student</button></p></form>"""
+
+    return HttpResponse(html)
+
+
+@csrf_exempt
+def update_student(request, id):
+    student = get_object_or_404(Student, id=id)
+    if request.method == 'POST':
+        form = StudentUpdateForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/students/')
+    else:
+        form = StudentUpdateForm(instance=student)
+
+    html = f"""<form method="post">{form.as_p()}<p><button type="submit">Update Student</button></p></form>"""
 
     return HttpResponse(html)

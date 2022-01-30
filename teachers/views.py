@@ -1,8 +1,8 @@
-from django.shortcuts import render  # noqa
+from django.shortcuts import render, get_object_or_404  # noqa
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from core_lms.utils import render_list_html
-from teachers.forms import TeacherCreateForm
+from core_lms.utils import render_persons_list_html
+from teachers.forms import TeacherCreateForm, TeacherUpdateForm
 from teachers.models import Teacher
 
 
@@ -64,7 +64,9 @@ def get_teachers(request):
             <input type="date" name="birth_date" value="{request.GET.get('birth_date', '')}"
             placeholder="Input date of birth">
         </p>
-        <p><button type="submit">Search</button></p></form>"""
+        <p><button type="submit">Search</button></p></form>
+        <br>
+        <a href="/teachers/create">Add a new teacher</a><br>"""
 
     for param_name in params:
         param_value = request.GET.get(param_name)
@@ -79,7 +81,7 @@ def get_teachers(request):
         qs = qs.filter(**query)
     except ValueError as e:
         return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
-    return render_list_html(qs, form)
+    return render_persons_list_html(qs, form)
 
 
 @csrf_exempt
@@ -93,5 +95,21 @@ def create_teacher(request):
         form = TeacherCreateForm()
 
     html = f"""<form method="post">{form.as_p()}<p><button type="submit">Create Teacher</button></p></form>"""
+
+    return HttpResponse(html)
+
+
+@csrf_exempt
+def update_teacher(request, id):
+    teacher = get_object_or_404(Teacher, id=id)
+    if request.method == 'POST':
+        form = TeacherUpdateForm(request.POST, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/teachers/')
+    else:
+        form = TeacherUpdateForm(instance=teacher)
+
+    html = f"""<form method="post">{form.as_p()}<p><button type="submit">Update Teacher</button></p></form>"""
 
     return HttpResponse(html)
