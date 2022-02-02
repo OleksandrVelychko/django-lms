@@ -1,0 +1,42 @@
+{% extends 'teachers/_base.html' %}
+
+{% block main %}
+
+    <form action="http://127.0.0.1:8000/teachers/">
+        <p>Search teachers</p>
+        <p></p>
+        <p>
+            <input type="text" name="first_name" value="{{ args.first_name }}" placeholder="Input first name">
+        </p>
+        <p>
+            <input type="text" name="last_name" value="{{ args.last_name }}" placeholder="Input last name">
+        </p>
+        <p>
+            <input type="number" name="age" value="{{ args.age }}" placeholder="Input age">
+        </p>
+        <p>
+            <input type="text" name="subject" value="{{ args.subject }}" placeholder="Input subject">
+        </p>
+        <p>
+            <input type="number" name="experience" value="{{ args.experience }}" placeholder="Input experience">
+        </p>
+        <p>
+            <input type="email" name="email" value="{{ args.email }}" placeholder="Input email">
+        </p>
+        <p>
+            <input type="tel" name="phone_number" value="{{ args.phone_number }}" placeholder="Input phone number">
+        </p>
+        <p>
+            <input type="date" name="birth_date" value="{{ args.birth_date }}" placeholder="Input date of birth">
+        </p>
+        <p><button type="submit">Search</button></p>
+    </form>
+    <br>
+    <a href="{% url 'create_teacher' %}">Add a new teacher</a><br>
+    {% for teacher in qs %}
+        <p>
+            {{ teacher }}
+            <a href="{% url 'update_teacher' id=teacher.id %}">EDIT</a>
+        </p>
+    {% endfor %}
+{% endblock %}

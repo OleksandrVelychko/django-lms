@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404  # noqa
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from students.forms import StudentCreateForm, StudentUpdateForm
 from students.models import Student
-from core_lms.utils import render_persons_list_html
 
 
 def get_students(request):
@@ -22,24 +22,6 @@ def get_students(request):
 
     query = {}
 
-    form = f"""<form action="http://127.0.0.1:8000/students/">
-        <p>Search students</p>
-        <p></p>
-        <p>
-            <input type="text" name="first_name" value="{request.GET.get('first_name', '')}"
-            placeholder="Input first name">
-        </p>
-        <p>
-            <input type="text" name="last_name" value="{request.GET.get('last_name', '')}"
-            placeholder="Input last name">
-        </p>
-        <p>
-            <input type="number" name="age" value="{request.GET.get('age', '')}" placeholder="Input age">
-        </p>
-        <p><button type="submit">Search</button></p></form>
-        <br>
-        <a href="/students/create">Add a new student</a><br>"""
-
     for param_name in params:
         param_value = request.GET.get(param_name)
         if param_value:
@@ -53,7 +35,10 @@ def get_students(request):
         qs = qs.filter(**query)
     except ValueError as e:
         return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
-    return render_persons_list_html(qs, form)
+    return render(request, 'students/list_students.html', {
+        'args': request.GET,
+        'qs': qs
+    })
 
 
 @csrf_exempt
@@ -62,13 +47,13 @@ def create_student(request):
         form = StudentCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/students/')
+            return HttpResponseRedirect(reverse('list_students'))
     else:
         form = StudentCreateForm()
 
-    html = f"""<form method="post">{form.as_p()}<p><button type="submit">Create Student</button></p></form>"""
-
-    return HttpResponse(html)
+    return render(request, 'students/create_student.html', {
+        'form': form
+    })
 
 
 @csrf_exempt
@@ -78,10 +63,10 @@ def update_student(request, id):
         form = StudentUpdateForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/students/')
+            return HttpResponseRedirect(reverse('list_students'))
     else:
         form = StudentUpdateForm(instance=student)
 
-    html = f"""<form method="post">{form.as_p()}<p><button type="submit">Update Student</button></p></form>"""
-
-    return HttpResponse(html)
+    return render(request, 'students/edit_student.html', {
+        'form': form
+    })

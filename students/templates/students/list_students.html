@@ -1,0 +1,29 @@
+{% extends 'students/_base.html' %}
+
+{% block main %}
+    <form action="http://127.0.0.1:8000/students/">
+        <p>Search students</p>
+        <p></p>
+        <p>
+            <input type="text" name="first_name" value="{{ args.first_name }}"
+            placeholder="Input first name">
+        </p>
+        <p>
+            <input type="text" name="last_name" value="{{ args.last_name }}"
+            placeholder="Input last name">
+        </p>
+        <p>
+            <input type="number" name="age" value="{{args.age}}" placeholder="Input age">
+        </p>
+        <p><button type="submit">Search</button></p>
+    </form>
+    <br>
+    <a href="{% url 'create_student' %}">Add a new student</a><br>
+
+    {% for student in qs %}
+        <p>
+            {{ student }}
+            <a href="{% url 'update_student' id=student.id %}">EDIT</a>
+        </p>
+    {% endfor %}
+{% endblock %}
