@@ -7,6 +7,7 @@ from teachers.models import Teacher
 
 
 def get_teachers(request):
+    page_title = 'View teachers'
     qs = Teacher.objects.all()
     params = [
         'first_name',
@@ -46,12 +47,14 @@ def get_teachers(request):
         return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
     return render(request, 'teachers/list_teachers.html', {
         'args': request.GET,
-        'qs': qs
+        'qs': qs,
+        'page_title': page_title
     })
 
 
 @csrf_exempt
 def create_teacher(request):
+    page_title = 'Create teacher'
     if request.method == 'POST':
         form = TeacherCreateForm(request.POST)
         if form.is_valid():
@@ -61,12 +64,14 @@ def create_teacher(request):
         form = TeacherCreateForm()
 
     return render(request, 'teachers/create_teacher.html', {
-        'form': form
+        'form': form,
+        'page_title': page_title
     })
 
 
 @csrf_exempt
 def update_teacher(request, id):
+    page_title = 'Edit teacher'
     teacher = get_object_or_404(Teacher, id=id)
     if request.method == 'POST':
         form = TeacherUpdateForm(request.POST, instance=teacher)
@@ -77,5 +82,6 @@ def update_teacher(request, id):
         form = TeacherUpdateForm(instance=teacher)
 
     return render(request, 'teachers/edit_teacher.html', {
-        'form': form
+        'form': form,
+        'page_title': page_title
     })
