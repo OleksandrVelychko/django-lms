@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404  # noqa
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from core_lms.utils import render_persons_list_html
 from teachers.forms import TeacherCreateForm, TeacherUpdateForm
 from teachers.models import Teacher
 
 
 def get_teachers(request):
+    page_title = 'View teachers'
     qs = Teacher.objects.all()
     params = [
         'first_name',
@@ -31,43 +32,6 @@ def get_teachers(request):
 
     query = {}
 
-    form = f"""<form action="http://127.0.0.1:8000/teachers/">
-        <p>Search teachers</p>
-        <p></p>
-        <p>
-            <input type="text" name="first_name" value="{request.GET.get('first_name', '')}"
-            placeholder="Input first name">
-        </p>
-        <p>
-            <input type="text" name="last_name" value="{request.GET.get('last_name', '')}"
-            placeholder="Input last name">
-        </p>
-        <p>
-            <input type="number" name="age" value="{request.GET.get('age', '')}" placeholder="Input age">
-        </p>
-        <p>
-            <input type="text" name="subject" value="{request.GET.get('subject', '')}" placeholder="Input subject">
-        </p>
-        <p>
-            <input type="number" name="experience" value="{request.GET.get('experience', '')}"
-            placeholder="Input experience">
-        </p>
-        <p>
-            <input type="email" name="email" value="{request.GET.get('email', '')}"
-            placeholder="Input email">
-        </p>
-        <p>
-            <input type="tel" name="phone_number" value="{request.GET.get('phone_number', '')}"
-            placeholder="Input phone number">
-        </p>
-        <p>
-            <input type="date" name="birth_date" value="{request.GET.get('birth_date', '')}"
-            placeholder="Input date of birth">
-        </p>
-        <p><button type="submit">Search</button></p></form>
-        <br>
-        <a href="/teachers/create">Add a new teacher</a><br>"""
-
     for param_name in params:
         param_value = request.GET.get(param_name)
         if param_value:
@@ -81,35 +45,43 @@ def get_teachers(request):
         qs = qs.filter(**query)
     except ValueError as e:
         return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
-    return render_persons_list_html(qs, form)
+    return render(request, 'teachers/list_teachers.html', {
+        'args': request.GET,
+        'qs': qs,
+        'page_title': page_title
+    })
 
 
 @csrf_exempt
 def create_teacher(request):
+    page_title = 'Create teacher'
     if request.method == 'POST':
         form = TeacherCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect(reverse('list_teachers'))
     else:
         form = TeacherCreateForm()
 
-    html = f"""<form method="post">{form.as_p()}<p><button type="submit">Create Teacher</button></p></form>"""
-
-    return HttpResponse(html)
+    return render(request, 'teachers/create_teacher.html', {
+        'form': form,
+        'page_title': page_title
+    })
 
 
 @csrf_exempt
 def update_teacher(request, id):
+    page_title = 'Edit teacher'
     teacher = get_object_or_404(Teacher, id=id)
     if request.method == 'POST':
         form = TeacherUpdateForm(request.POST, instance=teacher)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect(reverse('list_teachers'))
     else:
         form = TeacherUpdateForm(instance=teacher)
 
-    html = f"""<form method="post">{form.as_p()}<p><button type="submit">Update Teacher</button></p></form>"""
-
-    return HttpResponse(html)
+    return render(request, 'teachers/edit_teacher.html', {
+        'form': form,
+        'page_title': page_title
+    })
