@@ -1,6 +1,13 @@
+import django_filters
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from teachers.models import Teacher
+
+
+class TeacherFilter(django_filters.FilterSet):
+    class Meta:
+        model = Teacher
+        fields = ['first_name', 'last_name', 'age', 'subject', 'experience', 'email', 'phone_number', 'birth_date',]
 
 
 class TeacherBaseForm(ModelForm):

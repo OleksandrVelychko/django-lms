@@ -2,6 +2,7 @@ import datetime
 
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.db import models
+from django.urls import reverse
 from faker import Faker
 import random
 
@@ -22,6 +23,7 @@ class Student(models.Model):
     ])
     enroll_date = models.DateField(default=datetime.datetime.today())
     graduate_date = models.DateField(default=datetime.datetime.today)
+    inn = models.PositiveIntegerField(unique=True, null=True)
 
     @classmethod
     def generate_students(cls, count):
@@ -36,3 +38,10 @@ class Student(models.Model):
     def __str__(self):
         return f"Student({self.id}) {self.first_name} {self.last_name} {self.age} {self.phone_number} " \
                f"{self.enroll_date} {self.graduate_date}"
+
+    @property
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def get_update_link(self):
+        return reverse('students:update_students', kwargs={id: self.id})
