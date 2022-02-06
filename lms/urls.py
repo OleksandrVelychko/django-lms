@@ -20,6 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('', include('core_lms.urls')),
-    path('students/', include('students.urls', namespace='students')),
+    path('students/', include('students.urls')),
     path('teachers/', include('teachers.urls')),
 ]
