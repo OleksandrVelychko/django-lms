@@ -50,7 +50,7 @@ def create_student(request):
         form = StudentCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list_students'))
+            return HttpResponseRedirect(reverse('students:list_students'))
     else:
         form = StudentCreateForm()
 
@@ -66,7 +66,7 @@ def update_student(request, id):
         form = StudentUpdateForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list_students'))
+            return HttpResponseRedirect(reverse('students:list_students'))
     else:
         form = StudentUpdateForm(instance=student)
 

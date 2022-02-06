@@ -48,7 +48,6 @@ def get_teachers(request):
     qs = qs.order_by('-id')
     teachers_filter = TeacherFilter(data=request.GET, queryset=qs)
 
-
     return render(request, 'teachers/list_teachers.html', {
         'args': request.GET,
         'filter': teachers_filter
@@ -61,7 +60,7 @@ def create_teacher(request):
         form = TeacherCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list_teachers'))
+            return HttpResponseRedirect(reverse('teachers:list_teachers'))
     else:
         form = TeacherCreateForm()
 
@@ -77,7 +76,7 @@ def update_teacher(request, id):
         form = TeacherUpdateForm(request.POST, instance=teacher)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list_teachers'))
+            return HttpResponseRedirect(reverse('teachers:list_teachers'))
     else:
         form = TeacherUpdateForm(instance=teacher)
 

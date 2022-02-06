@@ -22,6 +22,7 @@ class Student(models.Model):
     ])
     enroll_date = models.DateField(default=datetime.datetime.today())
     graduate_date = models.DateField(default=datetime.datetime.today)
+    inn = models.PositiveIntegerField(unique=True, null=True)
 
     @classmethod
     def generate_students(cls, count):

@@ -9,7 +9,7 @@
         <p><button type="submit">Search</button></p>
     </form>
     <br>
-    <a href="{% url 'create_student' %}">Add a new student</a><br>
+    <a href="{% url 'students:create_student' %}">Add a new student</a><br>
     <p></p>
     <table>
     <tr>
@@ -24,7 +24,7 @@
             <td>{{ student.first_name|capfirst }}</td>
             <td>{{ student.last_name|title }}</td>
             <td>{{ student.age }}</td>
-            <td><a href="{% url 'update_student' id=student.id %}">EDIT</a></td>
+            <td><a href="{% url 'students:update_student' id=student.id %}">EDIT</a></td>
         </tr>
     {% endfor %}
     </table>
