@@ -6,8 +6,8 @@
     <form method="post">
          <p>Do you want to delete teacher {{ teacher.name }}?</p>
         <p>
-            <button type="submit">Delete</button>
-            <a href="{% url 'teachers:list_teachers' %}">Cancel</a>
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a class="btn btn-info" href="{% url 'teachers:list_teachers' %}">Cancel</a>
         </p>
     </form>
 {% endblock %}
