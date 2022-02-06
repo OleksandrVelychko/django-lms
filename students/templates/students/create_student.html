@@ -2,9 +2,10 @@
 
 {% block title %}Create student{% endblock %}
 
+{% load crispy_forms_tags %}
 {% block main %}
-    <form method="post">
-        {{form.as_p}}
+    <form method="post" class="bootstrap4">
+        {{form|crispy}}
         <p><button type="submit" class="btn btn-primary">Create Student</button></p>
     </form>
 {% endblock %}

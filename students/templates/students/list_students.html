@@ -2,10 +2,11 @@
 
 {% block title %}View students{% endblock %}
 
+{% load crispy_forms_tags %}
 {% block main %}
-    <form>
-        <p>Search students</p>
-        {{ filter.form.as_p}}
+    <form class="bootstrap4">
+        <p>Search students 🔎</p>
+        {{ filter.form|crispy}}
         <p><button class="btn btn-secondary" type="submit">Search</button></p>
     </form>
     <br>
@@ -25,8 +26,8 @@
             <td>{{ student.last_name|title }}</td>
             <td>{{ student.age }}</td>
             <td>
-                <a href="{% url 'students:update_student' id=student.id %}">EDIT</a>
-                <a href="{% url 'students:delete_student' id=student.id %}">DELETE</a>
+                <a href="{% url 'students:update_student' id=student.id %}">✎</a>
+                <a href="{% url 'students:delete_student' id=student.id %}">🗑</a>
             </td>
         </tr>
     {% endfor %}

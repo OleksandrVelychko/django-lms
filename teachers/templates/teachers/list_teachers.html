@@ -2,10 +2,11 @@
 
 {% block title %}View teachers{% endblock %}
 
+{% load crispy_forms_tags %}
 {% block main %}
-    <form>
-        <p>Search teachers</p>
-        {{ filter.form.as_p}}
+    <form class="bootstrap4">
+        <p>Search teachers 🔎</p>
+        {{ filter.form|crispy}}
         <p><button class="btn btn-secondary" type="submit">Search</button></p>
     </form>
     <br>
@@ -33,8 +34,8 @@
             <td>{{ teacher.phone_number }}</td>
             <td>{{ teacher.email }}</td>
             <td>
-                <a href="{% url 'teachers:update_teacher' id=teacher.id %}">EDIT</a>
-                <a href="{% url 'teachers:delete_teacher' id=teacher.id %}">DELETE</a>
+                <a href="{% url 'teachers:update_teacher' id=teacher.id %}">✎</a>
+                <a href="{% url 'teachers:delete_teacher' id=teacher.id %}">🗑</a>
             </td>
         </tr>
     {% endfor %}

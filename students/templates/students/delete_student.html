@@ -2,8 +2,9 @@
 
 {% block title %}Delete student{% endblock %}
 
+{% load crispy_forms_tags %}
 {% block main %}
-    <form method="post">
+    <form method="post" class="bootstrap4">
         <p>Do you want to delete student {{ student.name }}?</p>
         <p>
             <button type="submit" class="btn btn-danger">Delete</button>

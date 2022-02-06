@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404  # noqa
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from teachers.forms import TeacherCreateForm, TeacherUpdateForm, TeacherFilter
@@ -29,7 +29,7 @@ def get_teachers(request):
     #     'birth_date__contains'
     # ]
 
-    query = {}
+    # query = {}
 
     # for param_name in params:
     #     param_value = request.GET.get(param_name)
