@@ -31,3 +31,7 @@ class Teacher(models.Model):
     def __str__(self):
         return f"Teacher({self.id}) {self.first_name} {self.last_name} {self.age} {self.subject} {self.experience} " \
                f"{self.email} {self.phone_number} {self.birth_date}"
+
+    @property
+    def name(self):
+        return f'{self.first_name} {self.last_name}'

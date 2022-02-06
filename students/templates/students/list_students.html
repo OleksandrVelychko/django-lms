@@ -24,7 +24,10 @@
             <td>{{ student.first_name|capfirst }}</td>
             <td>{{ student.last_name|title }}</td>
             <td>{{ student.age }}</td>
-            <td><a href="{% url 'students:update_student' id=student.id %}">EDIT</a></td>
+            <td>
+                <a href="{% url 'students:update_student' id=student.id %}">EDIT</a>
+                <a href="{% url 'students:delete_student' id=student.id %}">DELETE</a>
+            </td>
         </tr>
     {% endfor %}
     </table>

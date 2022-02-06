@@ -83,3 +83,20 @@ def update_teacher(request, id):
     return render(request, 'teachers/edit_teacher.html', {
         'form': form
     })
+
+
+@csrf_exempt
+def delete_teacher(request, id):
+    teacher = get_object_or_404(Teacher, id=id)
+
+    if request.method == 'POST':
+        teacher.delete()
+        return HttpResponseRedirect(reverse('teachers:list_teachers'))
+
+    return render(
+        request,
+        'teachers/delete_teacher.html',
+        {
+            'teacher': teacher
+        }
+    )

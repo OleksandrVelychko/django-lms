@@ -1,0 +1,13 @@
+{% extends 'teachers/_base.html' %}
+
+{% block title %}Edit Teacher{% endblock %}
+
+{% block main %}
+    <form method="post">
+         <p>Do you want to delete teacher {{ teacher.name }}?</p>
+        <p>
+            <button type="submit">Delete</button>
+            <a href="{% url 'teachers:list_teachers' %}">Cancel</a>
+        </p>
+    </form>
+{% endblock %}

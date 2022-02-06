@@ -32,7 +32,10 @@
             <td>{{ teacher.experience }}</td>
             <td>{{ teacher.phone_number }}</td>
             <td>{{ teacher.email }}</td>
-            <td><a href="{% url 'teachers:update_teacher' id=teacher.id %}">EDIT</a></td>
+            <td>
+                <a href="{% url 'teachers:update_teacher' id=teacher.id %}">EDIT</a>
+                <a href="{% url 'teachers:delete_teacher' id=teacher.id %}">DELETE</a>
+            </td>
         </tr>
     {% endfor %}
     </table>
