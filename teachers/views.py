@@ -54,7 +54,6 @@ def get_teachers(request):
     })
 
 
-@csrf_exempt
 def create_teacher(request):
     if request.method == 'POST':
         form = TeacherCreateForm(request.POST)
@@ -69,7 +68,6 @@ def create_teacher(request):
     })
 
 
-@csrf_exempt
 def update_teacher(request, id):
     teacher = get_object_or_404(Teacher, id=id)
     if request.method == 'POST':
@@ -85,7 +83,6 @@ def update_teacher(request, id):
     })
 
 
-@csrf_exempt
 def delete_teacher(request, id):
     teacher = get_object_or_404(Teacher, id=id)
 

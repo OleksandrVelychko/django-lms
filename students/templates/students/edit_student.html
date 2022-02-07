@@ -5,6 +5,7 @@
 {% load crispy_forms_tags %}
 {% block main %}
     <form method="post" class="bootstrap4">
+        {% csrf_token %}
         {{form|crispy}}
         <p><button type="submit" class="btn btn-primary">Update Student</button></p>
     </form>
