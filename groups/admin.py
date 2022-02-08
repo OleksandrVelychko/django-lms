@@ -1,3 +1,4 @@
 from django.contrib import admin  # noqa
+from groups.models import Group
 
-# Register your models here.
+admin.site.register(Group)

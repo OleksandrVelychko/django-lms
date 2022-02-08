@@ -1,7 +1,5 @@
 import datetime
 from django.db import models
-from students.models import Student
-from teachers.models import Teacher
 
 
 class Group(models.Model):
