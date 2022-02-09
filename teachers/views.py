@@ -48,7 +48,6 @@ def get_teachers(request):
     teachers_filter = TeacherFilter(data=request.GET, queryset=qs)
 
     return render(request, 'teachers/list_teachers.html', {
-        'args': request.GET,
         'filter': teachers_filter
     })
 

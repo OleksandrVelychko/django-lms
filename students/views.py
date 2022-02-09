@@ -38,7 +38,6 @@ def get_students(request):
     students_filter = StudentFilter(data=request.GET, queryset=qs)
 
     return render(request, 'students/list_students.html', {
-        'args': request.GET,
         'filter': students_filter
     })
 

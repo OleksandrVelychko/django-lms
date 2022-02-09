@@ -5,7 +5,7 @@ from django.db import models
 class Group(models.Model):
     group_name = models.CharField(max_length=64, null=False)
     course = models.CharField(max_length=64, null=False)
-    start_date = models.DateField(default=datetime.datetime.today())
+    start_date = models.DateField(default=datetime.datetime.today)
     # end_date = models.DateField()
     # teacher = models.ForeignKey(Teacher, on_delete=models.SET_DEFAULT, default=None, related_name='teacher')
     # students = models.ManyToManyField(Student, related_name='students')
