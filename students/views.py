@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404  # noqa
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 
 from students.forms import StudentCreateForm, StudentUpdateForm, StudentFilter
 from students.models import Student
@@ -39,12 +38,10 @@ def get_students(request):
     students_filter = StudentFilter(data=request.GET, queryset=qs)
 
     return render(request, 'students/list_students.html', {
-        'args': request.GET,
         'filter': students_filter
     })
 
 
-@csrf_exempt
 def create_student(request):
     if request.method == 'POST':
         form = StudentCreateForm(request.POST)
@@ -59,7 +56,6 @@ def create_student(request):
     })
 
 
-@csrf_exempt
 def update_student(request, id):
     student = get_object_or_404(Student, id=id)
     if request.method == 'POST':
@@ -75,7 +71,6 @@ def update_student(request, id):
     })
 
 
-@csrf_exempt
 def delete_student(request, id):
     student = get_object_or_404(Student, id=id)
 
