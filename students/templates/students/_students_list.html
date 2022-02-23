@@ -3,6 +3,7 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Group</th>
+        <th>Group Headman</th>
         <th>INN</th>
         <th>Action</th>
     </tr>
@@ -19,6 +20,11 @@
                     <i>Empty</i>
                 {% endif %}
             </td>
+             <td>
+                 {% if student.group_id and student.group.headman_id %}
+                    {{ student.group.headman.name }}
+                 {% endif %}
+             </td>
             <td>{{ student.inn }}</td>
             <td>
                 <a href="{% url 'students:update_student' id=student.id %}">✎</a>
