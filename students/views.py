@@ -34,7 +34,9 @@ def get_students(request):
     #     qs = qs.filter(**query)
     # except ValueError as e:
     #     return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
-    qs = qs.order_by('-id')
+    # qs = qs.order_by('-id')
+    qs = qs.select_related('group').order_by('-id')
+
     students_filter = StudentFilter(data=request.GET, queryset=qs)
 
     return render(request, 'students/list_students.html', {

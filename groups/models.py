@@ -1,4 +1,6 @@
 import datetime
+import random
+
 from django.db import models
 
 
@@ -14,3 +16,14 @@ class Group(models.Model):
 
     def __str__(self):
         return super().__str__() + f'({self.group_name} {self.course})'
+
+    @classmethod
+    def generate_groups(cls, count):
+        groups = ['Python Basic', 'Python Advanced', 'DevOps', 'JS Basic', 'JS Advanced', 'React', 'Angular',
+                    'UI/UX', 'Project Management', 'Marketing', 'Sales', 'QA Manual', 'QA Automation']
+        for _ in range(count):
+            group = Group()
+            group.group_name = random.choice(groups)
+            group.course = str(random.randint(1, 10))
+            group.start_date = datetime.datetime.today() - datetime.timedelta(days=random.randint(1, 1000))
+            group.save()
