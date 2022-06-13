@@ -14,6 +14,7 @@ class Group(models.Model):
         null=True,
         related_name='headed_group'
     )
+
     # end_date = models.DateField()
     # teacher = models.ForeignKey(Teacher, on_delete=models.SET_DEFAULT, default=None, related_name='teacher')
     # students = models.ManyToManyField(Student, related_name='students')
@@ -26,7 +27,7 @@ class Group(models.Model):
     @classmethod
     def generate_groups(cls, count):
         groups = ['Python Basic', 'Python Advanced', 'DevOps', 'JS Basic', 'JS Advanced', 'React', 'Angular',
-                    'UI/UX', 'Project Management', 'Marketing', 'Sales', 'QA Manual', 'QA Automation']
+                  'UI/UX', 'Project Management', 'Marketing', 'Sales', 'QA Manual', 'QA Automation']
         for _ in range(count):
             group = Group()
             group.group_name = random.choice(groups)

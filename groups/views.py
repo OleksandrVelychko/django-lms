@@ -10,5 +10,4 @@ def get_group(request, id):
                   {
                       'group': group
                   }
-    )
-
+                  )
