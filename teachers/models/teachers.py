@@ -1,18 +1,14 @@
 from django.core.validators import validate_email
 from django.db import models
+from core_lms.models import Person
 from faker import Faker
 import random
 
 
-class Teacher(models.Model):
-    first_name = models.CharField(max_length=64, null=False)
-    last_name = models.CharField(max_length=64, null=False)
-    age = models.IntegerField(default=20)
+class Teacher(Person):
     subject = models.CharField(max_length=64, null=True)
     experience = models.IntegerField(default=0)
-    email = models.EmailField(max_length=64, blank=True, null=True, unique=True, validators=[validate_email])
     birth_date = models.DateField()
-    phone_number = models.CharField(max_length=24, blank=True, null=True, unique=True)
     group = models.ForeignKey(
         to='groups.Group',
         null=True,
