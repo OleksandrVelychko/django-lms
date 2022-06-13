@@ -12,8 +12,8 @@ class Person(models.Model):
         MinValueValidator(20),
         MaxValueValidator(120)
     ])
-    email = models.EmailField(max_length=64, blank=True, null=True, unique=True, validators=[validate_email])
-    phone_number = models.CharField(max_length=24, null=True, unique=True, validators=[
+    email = models.EmailField(max_length=64, blank=True, null=True, validators=[validate_email])
+    phone_number = models.CharField(max_length=24, null=True, validators=[
         RegexValidator(
             r'^(\+\d\d?)?\(\d{3}\)(\d-?){7}$',
             message="Phone number should be in format +1(111)111-11-11"
