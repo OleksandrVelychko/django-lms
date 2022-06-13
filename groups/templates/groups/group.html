@@ -19,6 +19,8 @@
 
     <h2>Students</h2>
         {% include 'students/_students_list.html' with students=group.students.all%}
+    <h2>Teachers</h2>
+        {% include 'teachers/_teachers_list.html' with teachers=group.teachers.all%}
 
 
 {% endblock %}

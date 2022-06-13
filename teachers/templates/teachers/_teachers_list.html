@@ -1,0 +1,37 @@
+    <table class="table table-dark table-striped">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Subject</th>
+        <th>Group</th>
+        <th>Experience</th>
+        <th>Phone Number</th>
+        <th>E-mail</th>
+        <th>Action</th>
+    </tr>
+
+    {% for teacher in teachers %}
+        <tr>
+            <td>{{ teacher.first_name|capfirst }}</td>
+            <td>{{ teacher.last_name|title }}</td>
+            <td>{{ teacher.age }}</td>
+            <td>{{ teacher.subject|title }}</td>
+            <td>{% if teacher.group_id %}
+                <a href="{% url 'groups:get_group' id=teacher.group_id %}">
+                    {{ teacher.group.group_name }}
+                </a>
+                {% else %}
+                    <i>Empty</i>
+                {% endif %}
+            </td>
+            <td>{{ teacher.experience }}</td>
+            <td>{{ teacher.phone_number }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>
+                <a href="{% url 'teachers:update_teacher' id=teacher.id %}">✎</a>
+                <a href="{% url 'teachers:delete_teacher' id=teacher.id %}">🗑</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
