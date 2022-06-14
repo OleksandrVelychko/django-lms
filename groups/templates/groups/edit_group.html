@@ -1,6 +1,6 @@
 {% extends 'students/_base.html' %}
 
-{% block title %}Edit student{% endblock %}
+{% block title %}Edit group{% endblock %}
 
 {% load crispy_forms_tags %}
 {% block main %}
@@ -13,5 +13,5 @@
     </form>
 
     <h2>Students</h2>
-    {% include 'students/_students_list.html' with students=group.students.all %}
+    {% include 'students/_students_list.html' with students=instance.students.all %}
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404  # noqa
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from core_lms.views import EditView
 from students.forms import StudentCreateForm, StudentUpdateForm, StudentFilter
 from students.models import Student
 
@@ -58,19 +59,16 @@ def create_student(request):
     })
 
 
-def update_student(request, id):
-    student = get_object_or_404(Student, id=id)
-    if request.method == 'POST':
-        form = StudentUpdateForm(request.POST, instance=student)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('students:list_students'))
-    else:
-        form = StudentUpdateForm(instance=student)
+class StudentEditView(EditView):
+    model = Student
+    success_url = 'students:list_students'
+    form = StudentUpdateForm
+    template_name = 'students/edit_student.html'
 
-    return render(request, 'students/edit_student.html', {
-        'form': form
-    })
+    # def get_context(self, context):
+    #     context = super().get_context(context)
+    #     context['flag'] = False
+    #     return context
 
 
 def delete_student(request, id):
