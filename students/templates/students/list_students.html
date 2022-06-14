@@ -13,6 +13,6 @@
     <a class="btn btn-primary" href="{% url 'students:create_student' %}">Add a new student</a><br>
     <p></p>
 
-    {% include 'students/_students_list.html' with students=filter.qs|slice:":20"%}
+    {% include 'students/_students_list.html' with students=object_list|slice:":20"%}
 
 {% endblock %}

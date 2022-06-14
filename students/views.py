@@ -1,17 +1,29 @@
 from django.shortcuts import render, get_object_or_404  # noqa
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, DeleteView, CreateView
+from django.views.generic import UpdateView, DeleteView, CreateView, ListView
 from students.forms import StudentCreateForm, StudentUpdateForm, StudentFilter
 from students.models import Student
 
 
-def get_students(request):
-    qs = Student.objects.all()
-    qs = qs.select_related('group__headman').order_by('-id')
-    students_filter = StudentFilter(data=request.GET, queryset=qs)
-    return render(request, 'students/list_students.html', {
-        'filter': students_filter
-    })
+class StudentsListView(ListView):
+    model = Student
+    template_name = 'students/list_students.html'
+
+    def get_filter(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return StudentFilter(data=self.request.GET, queryset=queryset)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.select_related('group__headman').order_by('-id')
+        filter_ = self.get_filter(queryset)
+        return filter_.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.get_filter()
+        return context
 
 
 class StudentCreateView(CreateView):
