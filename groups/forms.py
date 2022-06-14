@@ -15,5 +15,5 @@ class GroupUpdateForm(GroupBaseForm):
 
         self.fields['headman'].queryset = \
             self.fields['headman'].queryset.filter(
-                group_id = self.instance.id
+                group_id=self.instance.id
             )

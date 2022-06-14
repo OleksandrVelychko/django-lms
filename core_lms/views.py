@@ -2,8 +2,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from students.forms import StudentUpdateForm
-
 
 def get_index_page(request):
     return render(request, 'core_lms/index.html')
