@@ -46,9 +46,10 @@ class StudentEditView(UpdateView):
 
 class StudentDeleteView(DeleteView):
     model = Student
-    pk_url_kwarg = 'id'
-    template_name = 'students/delete_student.html'
     success_url = reverse_lazy('students:list_students')
+    template_name = 'students/delete_student.html'
+    pk_url_kwarg = 'id'
+
 
 
 # def delete_student(request, id):

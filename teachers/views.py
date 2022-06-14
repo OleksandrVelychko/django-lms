@@ -1,49 +1,14 @@
 from django.shortcuts import render, get_object_or_404  # noqa
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView, UpdateView, DeleteView
+
 from teachers.forms import TeacherCreateForm, TeacherUpdateForm, TeacherFilter
 from teachers.models import Teacher
 
 
 def get_teachers(request):
     qs = Teacher.objects.all()
-    # params = [
-    #     'first_name',
-    #     'last_name',
-    #     'first_name__startswith',
-    #     'first_name__endswith',
-    #     'first_name__contains',
-    #     'age',
-    #     'age__gt',
-    #     'age__lt',
-    #     'subject',
-    #     'subject__contains',
-    #     'subject__startswith',
-    #     'experience',
-    #     'email',
-    #     'email__contains',
-    #     'phone_number',
-    #     'phone_number__contains',
-    #     'birth_date',
-    #     'birth_date__contains'
-    # ]
-
-    # query = {}
-
-    # for param_name in params:
-    #     param_value = request.GET.get(param_name)
-    #     if param_value:
-    #         if ',' in param_value and '__' not in param_name:
-    #             param_values = param_value.split(',')
-    #             query[param_name + '__in'] = param_values
-    #         else:
-    #             query[param_name] = param_value
-    #
-    # try:
-    #     qs = qs.filter(**query)
-    # except ValueError as e:
-    #     return HttpResponse(f"Error: incorrect data was passed in query string. Details: {str(e)}", status=400)
-
     qs = qs.order_by('-id')
     teachers_filter = TeacherFilter(data=request.GET, queryset=qs)
 
@@ -52,46 +17,67 @@ def get_teachers(request):
     })
 
 
-def create_teacher(request):
-    if request.method == 'POST':
-        form = TeacherCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('teachers:list_teachers'))
-    else:
-        form = TeacherCreateForm()
-
-    return render(request, 'teachers/create_teacher.html', {
-        'form': form
-    })
+class TeacherCreateView(CreateView):
+    model = Teacher
+    success_url = reverse_lazy('teachers:list_teachers')
+    form_class = TeacherCreateForm
+    template_name = 'teachers/create_teacher.html'
 
 
-def update_teacher(request, id):
-    teacher = get_object_or_404(Teacher, id=id)
-    if request.method == 'POST':
-        form = TeacherUpdateForm(request.POST, instance=teacher)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('teachers:list_teachers'))
-    else:
-        form = TeacherUpdateForm(instance=teacher)
+# def create_teacher(request):
+#     if request.method == 'POST':
+#         form = TeacherCreateForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect(reverse('teachers:list_teachers'))
+#     else:
+#         form = TeacherCreateForm()
+#
+#     return render(request, 'teachers/create_teacher.html', {
+#         'form': form
+#     })
 
-    return render(request, 'teachers/edit_teacher.html', {
-        'form': form
-    })
+
+class TeacherEditView(UpdateView):
+    model = Teacher
+    success_url = reverse_lazy('teachers:list_teachers')
+    form_class = TeacherUpdateForm
+    template_name = 'teachers/edit_teacher.html'
+    pk_url_kwarg = 'id'
+
+# def update_teacher(request, id):
+#     teacher = get_object_or_404(Teacher, id=id)
+#     if request.method == 'POST':
+#         form = TeacherUpdateForm(request.POST, instance=teacher)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect(reverse('teachers:list_teachers'))
+#     else:
+#         form = TeacherUpdateForm(instance=teacher)
+#
+#     return render(request, 'teachers/edit_teacher.html', {
+#         'form': form
+#     })
 
 
-def delete_teacher(request, id):
-    teacher = get_object_or_404(Teacher, id=id)
+class TeacherDeleteView(DeleteView):
+    model = Teacher
+    success_url = reverse_lazy('teachers:list_teachers')
+    template_name = 'teachers/delete_teacher.html'
+    pk_url_kwarg = 'id'
 
-    if request.method == 'POST':
-        teacher.delete()
-        return HttpResponseRedirect(reverse('teachers:list_teachers'))
 
-    return render(
-        request,
-        'teachers/delete_teacher.html',
-        {
-            'teacher': teacher
-        }
-    )
+# def delete_teacher(request, id):
+#     teacher = get_object_or_404(Teacher, id=id)
+#
+#     if request.method == 'POST':
+#         teacher.delete()
+#         return HttpResponseRedirect(reverse('teachers:list_teachers'))
+#
+#     return render(
+#         request,
+#         'teachers/delete_teacher.html',
+#         {
+#             'teacher': teacher
+#         }
+#     )

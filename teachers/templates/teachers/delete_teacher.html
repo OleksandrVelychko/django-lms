@@ -6,7 +6,7 @@
 {% block main %}
     <form method="post" class="bootstrap4">
         {% csrf_token %}
-        <p>Do you want to delete teacher {{ teacher.name }}?</p>
+        <p>Do you want to delete teacher {{ object.name }}?</p>
         <p>
             <button type="submit" class="btn btn-danger">Delete</button>
             <a class="btn btn-info" href="{% url 'teachers:list_teachers' %}">Cancel</a>
