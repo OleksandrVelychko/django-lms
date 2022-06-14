@@ -10,7 +10,7 @@ class StudentsListView(ListView):
     template_name = 'students/list_students.html'
 
     def get_filter(self, queryset=None):
-        if not queryset:
+        if queryset is None:
             queryset = self.get_queryset()
         return StudentFilter(data=self.request.GET, queryset=queryset)
 
