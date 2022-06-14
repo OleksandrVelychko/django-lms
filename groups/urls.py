@@ -6,5 +6,5 @@ app_name = 'groups'
 
 urlpatterns = [
     path('<int:id>', get_group, name='get_group'),
-    path('update/<int:id>', GroupEditView().update_instance, name='edit_group'),
+    path('update/<int:id>', GroupEditView.as_view(), name='edit_group'),
     ]
