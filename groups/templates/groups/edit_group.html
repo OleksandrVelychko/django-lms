@@ -1,0 +1,17 @@
+{% extends 'students/_base.html' %}
+
+{% block title %}Edit student{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block main %}
+    <form method="post" class="bootstrap4">
+        {% csrf_token %}
+        {{form|crispy}}
+        <p>
+            <button type="submit" class="btn btn-primary">Update Group</button>
+        </p>
+    </form>
+
+    <h2>Students</h2>
+    {% include 'students/_students_list.html' with students=group.students.all %}
+{% endblock %}
