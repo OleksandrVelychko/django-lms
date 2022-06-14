@@ -1,0 +1,26 @@
+{% extends 'core_lms/_base.html' %}
+
+{% block main %}
+    <h2>Group {{ group.group_name }}</h2>
+    <table class="table">
+        <tr>
+            <th>Course</th>
+            <td>{{ group.course }}</td>
+        </tr>
+        <tr>
+            <th>Start date</th>
+            <td>{{ group.start_date }}</td>
+        </tr>
+        <tr>
+            <th>Headman</th>
+            <td>{{ group.headman.name }}</td>
+        </tr>
+    </table>
+
+    <h2>Students</h2>
+        {% include 'students/_students_list.html' with students=group.students.all%}
+    <h2>Teachers</h2>
+        {% include 'teachers/_teachers_list.html' with teachers=group.teachers.all%}
+
+
+{% endblock %}
