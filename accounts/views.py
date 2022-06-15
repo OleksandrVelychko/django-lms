@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
@@ -26,3 +26,11 @@ class AccountEdit(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class PasswordChange(PasswordChangeView):
+    template_name = 'accounts/password.html'
+
+
+class AccountPasswordChangeDone(PasswordChangeDoneView):
+    template_name = 'accounts/password_change_done.html'
