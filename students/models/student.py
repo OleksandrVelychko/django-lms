@@ -1,6 +1,4 @@
 import datetime
-
-from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.db import models
 from django.urls import reverse
 from core_lms.models import Person
@@ -39,3 +37,6 @@ class Student(Person):
 
     def get_update_link(self):
         return reverse('students:update_students', kwargs={id: self.id})
+
+    # def get_absolute_url(self):
+    #     return reverse('students:list_students', kwargs={'id': self.id})

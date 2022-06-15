@@ -2,6 +2,7 @@ import datetime
 import random
 
 from django.db import models
+from django.urls import reverse
 
 
 class Group(models.Model):
@@ -14,12 +15,6 @@ class Group(models.Model):
         null=True,
         related_name='headed_group'
     )
-
-    # end_date = models.DateField()
-    # teacher = models.ForeignKey(Teacher, on_delete=models.SET_DEFAULT, default=None, related_name='teacher')
-    # students = models.ManyToManyField(Student, related_name='students')
-    # updated_date = models.DateTimeField(auto_now=True)
-    # is_active = models.BooleanField(default=None)
 
     def __str__(self):
         return super().__str__() + f'({self.group_name} {self.course})'
@@ -34,3 +29,6 @@ class Group(models.Model):
             group.course = str(random.randint(1, 10))
             group.start_date = datetime.datetime.today() - datetime.timedelta(days=random.randint(1, 1000))
             group.save()
+
+    def get_absolute_url(self):
+        return reverse('groups:edit_group', kwargs={'id': self.id})
