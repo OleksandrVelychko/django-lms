@@ -15,6 +15,12 @@ class Teacher(Person):
         related_name='teachers'
     )
 
+    class Role(models.IntegerChoices):
+        TEACHER = 1, 'Teacher'
+        MENTOR = 2, 'Mentor'
+
+    role = models.PositiveIntegerField(default=Role.TEACHER, choices=Role.choices)
+
     @classmethod
     def generate_teachers(cls, count):
         subjects = ['Python Basic', 'Python Advanced', 'DevOps', 'JS Basic', 'JS Advanced', 'React', 'Angular',
