@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 from django.db import models  # noqa
 
 
@@ -11,7 +11,10 @@ class Profile(models.Model):
     image = models.ImageField(
         null=True,
         upload_to='pics/',
-        blank=True
+        blank=True,
+        validators=[
+            FileExtensionValidator(['jpg', 'png'])
+        ]
     )
 
 
