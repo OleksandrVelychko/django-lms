@@ -18,7 +18,8 @@ class Migration(migrations.Migration):
                 null=True,
                 upload_to='pics/',
                 validators=[
-                    django.core.validators.FileExtensionValidator(['jpg', 'png'])
+                    django.core.validators.FileExtensionValidator(
+                        ['jpg', 'png'])
                 ]),
         ),
     ]
