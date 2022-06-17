@@ -30,7 +30,7 @@ class PerfTrackerMiddleware:
             user=current_user,
             path=request.path,
             execution_time=round(time.time() - start, 3),
-            query_params=str(request.body)
+            query_params=list(request.GET.items())
         )
         log.save()
         # print(f'LOGGED: {current_user} {request.path} {round(time.time() - start, 3)} sec {request.GET}')
