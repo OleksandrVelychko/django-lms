@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import LoginView, PasswordChangeView, \
+    PasswordChangeDoneView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -91,7 +92,8 @@ class PasswordChange(PasswordChangeView):
         result = super().form_valid(form)
         messages.success(
             self.request,
-            f'Password for user {self.request.user.username} changed successfully'
+            f'Password for user {self.request.user.username} '
+            f'changed successfully'
         )
         return result
 
