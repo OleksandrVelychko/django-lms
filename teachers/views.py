@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404  # noqa
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
@@ -10,6 +11,7 @@ from teachers.models import Teacher
 class TeachersListView(ListView):
     model = Teacher
     template_name = 'teachers/list_teachers.html'
+    paginate_by = 10
 
     def get_filter(self, queryset=None):
         if not queryset:

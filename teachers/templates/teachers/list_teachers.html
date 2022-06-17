@@ -13,6 +13,6 @@
     <a class="btn btn-primary" href="{% url 'teachers:create_teacher' %}">Add a new teacher</a><br>
     <p></p>
 
-    {% include 'teachers/_teachers_list.html' with teachers=object_list %}
-
+    {% include 'teachers/_teachers_list.html' with teachers=page_obj.object_list %}
+    {% include 'core_lms/_pagination.html' %}
 {% endblock %}

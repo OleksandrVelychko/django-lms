@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404  # noqa
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView, CreateView, ListView
@@ -9,6 +10,7 @@ from students.models import Student
 class StudentsListView(ListView):
     model = Student
     template_name = 'students/list_students.html'
+    paginate_by = 10
 
     def get_filter(self, queryset=None):
         if queryset is None:
@@ -24,6 +26,10 @@ class StudentsListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = self.get_filter()
+        # paginator = Paginator(self.get_queryset(), 5)
+        # page_number = self.request.GET.get('page', '1')
+        # page_obj = paginator.page(int(page_number))
+        # context['page_obj'] = page_obj
         return context
 
 
