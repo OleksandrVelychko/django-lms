@@ -1,11 +1,18 @@
 {% extends 'core_lms/_base.html' %}
-
+{% load static %}
 {% block title %}Update Profile{% endblock %}
 
 {% load crispy_forms_tags %}
 {% block main %}
     <h2>Update Profile</h2>
-    <form method="post" class="bootstrap4">
+    <div class="profile-image">
+        {% if user.profile.image %}
+            <img src="{{ user.profile.image.url }}" class="rounded-circle">
+        {% else %}
+            <img src="{% static 'images/default.jpg' %}" class="rounded-circle">
+        {% endif %}
+    </div>
+    <form method="post" class="bootstrap4" enctype="multipart/form-data">
 
         <div id="div_id_login" class="form-group"><label for="id_login" class="">
                 User Name
@@ -19,7 +26,10 @@
         </div>
 
         {% csrf_token %}
-        {{form|crispy}}
+        {{user_form|crispy}}
+        <br>
+        {{profile_form|crispy}}
+        <br>
         <p><button type="submit" class="btn btn-primary">Update Profile</button></p>
     </form>
 {% endblock %}

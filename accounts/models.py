@@ -10,7 +10,6 @@ class Profile(models.Model):
     )
     image = models.ImageField(
         null=True,
-        default='default.jpg',
         upload_to='pics/',
         blank=True
     )

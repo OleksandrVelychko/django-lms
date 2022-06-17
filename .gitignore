@@ -4,4 +4,4 @@ env
 __pycache__
 *.sqlite3
 .flake8
-/media/
+/media
