@@ -11,3 +11,8 @@
     max-height: 200px;
     max-width: 200px;
 }
+
+.profile-avatar img {
+    max-height: 40px;
+    max-width: 40px;
+}
