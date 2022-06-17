@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path, reverse_lazy
-from accounts.views import AccountRegister, AccountLogin, AccountEdit, PasswordChange, AccountPasswordChangeDone
+from accounts.views import AccountRegister, AccountLogin, AccountEdit, \
+    PasswordChange, AccountPasswordChangeDone
 
 app_name = 'accounts'
 
