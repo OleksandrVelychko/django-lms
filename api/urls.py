@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import re_path
 from rest_framework.routers import DefaultRouter
 from api import views
 from rest_framework import permissions
@@ -15,7 +15,7 @@ schema_view = get_schema_view(
         license=openapi.License(name="BSD License"),
     ),
     public=True,
-    permission_classes=[permissions.AllowAny,],
+    permission_classes=[permissions.AllowAny],
 )
 
 app_name = 'api'
