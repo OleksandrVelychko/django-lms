@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_extensions',
     'debug_toolbar',
     'crispy_forms',
+    'rest_framework',
+    'drf_yasg',
+
     'core_lms',
     'students',
     'teachers',
@@ -147,6 +151,8 @@ INTERNAL_IPS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'index'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_USER = 'testtestapp454545@gmail.com'

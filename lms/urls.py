@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('accounts.urls')),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),
     path('teachers/', include('teachers.urls')),
+    path('api/', include('api.urls')),
     path('', include('core_lms.urls')),
 ]
 

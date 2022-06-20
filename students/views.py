@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404  # noqa
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import UpdateView, DeleteView, CreateView, ListView
 from students.forms import StudentCreateForm, StudentUpdateForm, StudentFilter
 from students.models import Student
@@ -30,6 +32,22 @@ class StudentsListView(ListView):
         # page_obj = paginator.page(int(page_number))
         # context['page_obj'] = page_obj
         return context
+
+
+class StudentsListAPIExample(View):
+    def get(self, request):
+        import json
+        queryset = Student.objects.all()
+        response_dict = {
+            'students': [
+                {'id': student.id,
+                 'first_name': student.first_name,
+                 'last_name': student.last_name}
+                for student in queryset
+            ]
+        }
+        return HttpResponse(json.dumps(response_dict),
+                            content_type='application/json')
 
 
 class StudentCreateView(LoginRequiredMixin, CreateView):
