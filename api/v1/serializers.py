@@ -19,7 +19,8 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'first_name',
-            'last_name'
+            'last_name',
+            'age',
             #    'group_obj'
         )
 
