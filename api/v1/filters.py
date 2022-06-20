@@ -8,9 +8,7 @@ class StudentFilter(django_filters.FilterSet):
     class Meta:
         model = Student
         fields = {
-            'age': ['gte', 'lte', 'exact'],
-            'first_name': ['icontains'],
-            'last_name': ['icontains'],
+            'age': ['exact', 'gte', 'lte'],
         }
 
 
@@ -18,14 +16,13 @@ class TeacherFilter(django_filters.FilterSet):
     class Meta:
         model = Teacher
         fields = {
-            'subject': ['icontains', 'exact'],
+            'subject': ['exact', 'icontains'],
         }
 
 
 class GroupFilter(django_filters.FilterSet):
+    start_date = django_filters.DateFilter(lookup_expr='exact')
+
     class Meta:
         model = Group
-        fields = {
-            'group_name': ['icontains', 'exact'],
-        }
-
+        fields = ['start_date', 'course']

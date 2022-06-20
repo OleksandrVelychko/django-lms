@@ -31,8 +31,10 @@ class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     renderer_classes = [JSONRenderer, XMLRenderer]
     pagination_class = StudentPagination
+    search_fields = ['first_name', 'last_name']
     filter_backends = (
         filters.DjangoFilterBackend,
+        rest_framework_filters.SearchFilter,
         rest_framework_filters.OrderingFilter,
     )
     filterset_class = StudentFilter
@@ -44,9 +46,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     renderer_classes = [JSONRenderer, XMLRenderer]
+    search_fields = ['course', 'start_date']
     pagination_class = GroupPagination
     filter_backends = (
         filters.DjangoFilterBackend,
+        rest_framework_filters.SearchFilter,
         rest_framework_filters.OrderingFilter,
     )
     filterset_class = GroupFilter
@@ -57,9 +61,11 @@ class TeacherViewSet(viewsets.ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
     renderer_classes = [JSONRenderer, XMLRenderer]
+    search_fields = ['first_name', 'last_name', 'subject', 'experience']
     pagination_class = TeacherPagination
     filter_backends = (
         filters.DjangoFilterBackend,
+        rest_framework_filters.SearchFilter,
         rest_framework_filters.OrderingFilter,
     )
     filterset_class = TeacherFilter

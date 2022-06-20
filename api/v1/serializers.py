@@ -21,7 +21,6 @@ class StudentSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'age',
-            #    'group_obj'
         )
 
 

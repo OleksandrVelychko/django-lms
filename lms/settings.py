@@ -166,9 +166,9 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
     # ),
-    'DEFAULT_THROTTLE_RATES': {
-        'students': '2/min',
-    },
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'students': '2/min',
+    # },
 }
 
 SIMPLE_JWT = {
