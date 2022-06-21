@@ -26,7 +26,7 @@ urlpatterns = [
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),
     path('teachers/', include('teachers.urls')),
-    path('api/', include('api.urls')),
+    path('api/v1/', include('api.v1.urls')),
     path('', include('core_lms.urls')),
 ]
 
